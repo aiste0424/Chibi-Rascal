@@ -6,9 +6,6 @@
 //inheritance = IS-A
 //containment = HAS-A
 
-//the animation state the player is in
-
-
 class Player : public GameObject   //player is a game object
 {
 public:
@@ -31,6 +28,7 @@ public:
 	
 	Player(Screen& screen);
 	~Player();
+
 	State GetState();
 	BoxCollider& GetCollider();
 	
@@ -39,14 +37,14 @@ public:
 
 private:
 
+	int m_velocity;
+
+	Vector2D m_direction;
+	Vector2D m_emptySpace;
+
 	State m_state;
 	Direction m_facingDirection;
 	Sprite m_images[static_cast<unsigned long long>(State::TotalStates)]; 
 	BoxCollider m_collider[static_cast<unsigned long long>(State::TotalStates)];
-	
-	int m_velocity;
-
-	Vector2D m_emptySpace;
-	Vector2D m_direction;
 };
 

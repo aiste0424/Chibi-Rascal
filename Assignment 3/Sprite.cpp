@@ -40,7 +40,7 @@ void Sprite::SetAnimationVelocity(float velocity)
 }
 
 //This is the resolution of the sprite image as it will appear on-screen
-void Sprite::SetSpriteDimension(int width, int height)
+void Sprite::SetSpriteDimension(float width, float height)
 {
 	m_spriteDimension.x = width;
 	m_spriteDimension.y = height;

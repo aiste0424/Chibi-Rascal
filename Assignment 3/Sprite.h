@@ -20,7 +20,7 @@ public:
 	void IsAnimationLooping(bool flag);
 	void SetAnimationVelocity(float velocity);
 	void SetImageCel(int column, int row);
-	void SetSpriteDimension(int width, int height);
+	void SetSpriteDimension(float width, float height);
 	void SetImageDimension(int columns, int rows, int width, int height);
 
 	Vector2D GetSpriteDimension();
