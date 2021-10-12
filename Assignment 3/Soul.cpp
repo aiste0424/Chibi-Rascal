@@ -3,10 +3,10 @@
 
 Soul::Soul(Screen& screen)
 {
-    m_state = NULL;
+    m_state = -1;
     m_score = 0;
 	m_image.Load("Assets/Images/Soul.png", screen);
-    m_image.SetSpriteDimension(128*0.5, 128*0.5);
+    m_image.SetSpriteDimension(static_cast<int>(128 * 0.5), static_cast<int>(128 * 0.5));
     m_image.SetImageDimension(8, 3, 1024, 384);
     m_image.SetAnimationVelocity(0.4f);
     m_image.IsAnimated(true);
@@ -55,5 +55,5 @@ void Soul::Update(Player& player, Score& score, Enemy& enemy)
 
 void Soul::Render(Screen& screen)
 {
-    m_image.Render(m_position.x, m_position.y, 0, screen, Sprite::NO_FLIP);
+    m_image.Render(m_position.x, m_position.y, 0, screen, Sprite::Flip::NO_FLIP);
 }

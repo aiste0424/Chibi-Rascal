@@ -34,5 +34,5 @@ PlayButton::State PlayButton::GetState()
 
 void PlayButton::Render(Screen& screen)
 {
-	m_image.Render(m_position.x, m_position.y, 0, screen, Sprite::NO_FLIP);
+	m_image.Render(m_position.x, m_position.y, 0, screen, Sprite::Flip::NO_FLIP);
 }
