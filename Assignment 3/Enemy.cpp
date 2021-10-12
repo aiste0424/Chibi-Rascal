@@ -1,37 +1,38 @@
 #include "Enemy.h"
+#include <iostream>
 #include "Player.h"
 
 Enemy::Enemy(Screen& screen)
 {
-    m_stun = -1;
     m_frames = 0;
-    m_hasStun = false;
     m_collidingFrames = 0;
     m_emptySpace = {15, 10};
+    m_stun = -1;
+    m_hasStun = false;
 
     m_state = State::Idle;
     m_facingDirection = Direction::Left;
     
-    m_images[static_cast<int>(State::Walk)].Load("Assets/Images/Reaper_Run.png", screen);
-    m_images[static_cast<int>(State::Idle)].Load("Assets/Images/Reaper_Idle.png", screen);
-    m_images[static_cast<int>(State::Attack)].Load("Assets/Images/Reaper_Attack.png", screen);
+    m_images[static_cast<unsigned long long>(State::Attack)].Load("Assets/Images/Reaper_Attack.png", screen);
+    m_images[static_cast<unsigned long long>(State::Idle)].Load("Assets/Images/Reaper_Idle.png", screen);
+    m_images[static_cast<unsigned long long>(State::Walk)].Load("Assets/Images/Reaper_Run.png", screen);
 
-    m_images[static_cast<int>(State::Walk)].SetImageDimension(8, 1, 384, 48);
-    m_images[static_cast<int>(State::Idle)].SetImageDimension(5, 1, 240, 48);
-    m_images[static_cast<int>(State::Attack)].SetImageDimension(10, 1, 480, 48);
+    m_images[static_cast<unsigned long long>(State::Attack)].SetImageDimension(10, 1, 480, 48);
+    m_images[static_cast<unsigned long long>(State::Idle)].SetImageDimension(5, 1, 240, 48);
+    m_images[static_cast<unsigned long long>(State::Walk)].SetImageDimension(8, 1, 384, 48);
 
     for (int i = 0; i < static_cast<int>(State::TotalStates); i++)
     {
+        m_images[i].SetSpriteDimension(48 * 3, 48 * 3);
         m_images[i].IsAnimated(true);
         m_images[i].IsAnimationLooping(true);
         m_images[i].SetAnimationVelocity(0.2f);
-        m_images[i].SetSpriteDimension(48 * 3, 48 * 3);
     }
 }
 
 Enemy::~Enemy()
 {
-    m_images[static_cast<int>(m_state)].Unload();
+    m_images[static_cast<unsigned long long>(m_state)].Unload();
 }
 
 State Enemy::GetState()
@@ -46,7 +47,7 @@ void Enemy::SetState(State state)
 
 const BoxCollider& Enemy::GetCollider() const
 {
-    return m_collider[static_cast<int>(m_state)];
+    return m_collider[static_cast<unsigned long long>(m_state)];
 }
 
 int Enemy::GetStun()
@@ -62,7 +63,7 @@ bool Enemy::GetHasStun()
 void Enemy::Update(Player& player, Score& score)
 {
     //if player collides with the enemy, enemy stops following and gets stunned
-    if (m_collider[static_cast<int>(m_state)].IsColliding(player.GetCollider()))
+    if (m_collider[static_cast<unsigned long long>(m_state)].IsColliding(player.GetCollider()))
     {
         m_collidingFrames++;
         if (m_collidingFrames >= 100)
@@ -121,22 +122,22 @@ void Enemy::Update(Player& player, Score& score)
         }
     }
 
-    m_images[static_cast<int>(m_state)].Update();
+    m_images[static_cast<unsigned long long>(m_state)].Update();
     //there's a lot of white space surrounding the actual colored sprite in the image
     //and taking it out from the calculation makes the collider more accurate
-    m_collider[static_cast<int>(m_state)].SetDimension(m_images[static_cast<int>(m_state)].GetSpriteDimension().x - m_emptySpace.x, m_images[static_cast<int>(m_state)].GetSpriteDimension().y - m_emptySpace.y);
-    m_collider[static_cast<int>(m_state)].SetPosition(m_position.x + m_emptySpace.x, m_position.y + m_emptySpace.y);
-    m_collider[static_cast<int>(m_state)].Update();
+    m_collider[static_cast<unsigned long long>(m_state)].SetDimension(m_images[static_cast<unsigned long long>(m_state)].GetSpriteDimension().x - m_emptySpace.x, m_images[static_cast<unsigned long long>(m_state)].GetSpriteDimension().y - m_emptySpace.y);
+    m_collider[static_cast<unsigned long long>(m_state)].SetPosition(m_position.x + m_emptySpace.x, m_position.y + m_emptySpace.y);
+    m_collider[static_cast<unsigned long long>(m_state)].Update();
 }
 //renders and flips the image in the right direction
 void Enemy::Render(Screen& screen)
 {
     if (m_facingDirection == Direction::Right)
     {
-        m_images[static_cast<int>(m_state)].Render(m_position.x, m_position.y, 0, screen, Sprite::HORZ_FLIP);
+        m_images[static_cast<unsigned long long>(m_state)].Render(m_position.x, m_position.y, 0, screen, Sprite::HORZ_FLIP);
     }
     else
     {
-        m_images[static_cast<int>(m_state)].Render(m_position.x, m_position.y, 0, screen, Sprite::NO_FLIP);
+        m_images[static_cast<unsigned long long>(m_state)].Render(m_position.x, m_position.y, 0, screen, Sprite::NO_FLIP);
     }
 }
