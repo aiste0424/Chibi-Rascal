@@ -14,12 +14,12 @@ bool isGameRunning = true;
 
 int main(int argc, char* argv[])
 {
-	Screen screen;
 	Input input;
-	Sprite background;
 	Sprite rules;
-	Sprite mainMenu;
+	Screen screen;
 	Sprite gameOver;
+	Sprite mainMenu;
+	Sprite background;
 	
 	Text::Initialize();
 	if (!screen.Initialize("Chibi Rascal"))
@@ -27,15 +27,15 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	background.Load("Assets/Images/Background.png", screen);
+	background.IsAnimated(false);
 	background.SetSpriteDimension(1280, 720);
 	background.SetImageDimension(1, 1, 1280, 720);
-	background.IsAnimated(false);
+	background.Load("Assets/Images/Background.png", screen);
 
-	rules.Load("Assets/Images/rules.png", screen);
+	rules.IsAnimated(false);
 	rules.SetSpriteDimension(1280, 720);
 	rules.SetImageDimension(1, 1, 1280, 720);
-	rules.IsAnimated(false);
+	rules.Load("Assets/Images/rules.png", screen);
 
 	gameOver.Load("Assets/Images/Game_Over.png", screen);
 	gameOver.SetSpriteDimension(1280, 720);

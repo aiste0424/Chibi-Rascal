@@ -4,39 +4,39 @@
 Player::Player(Screen& screen)
 {
 	m_velocity = 5;
+	m_state = State::Idle;
 	m_emptySpace = {60, 30};
 	m_facingDirection = Direction::Right;
-	m_state = State::Idle;
 
 	m_images[static_cast<int>(State::Idle)].Load("Assets/Images/Demon_Idle.png", screen);
 	m_images[static_cast<int>(State::Walk)].Load("Assets/Images/Demon_Walk.png", screen);
 	m_images[static_cast<int>(State::Death)].Load("Assets/Images/Demon_Death.png", screen);
-	m_images[static_cast<int>(State::Attack)].Load("Assets/Images/Demon_Attack.png", screen);
 	m_images[static_cast<int>(State::Up)].Load("Assets/Images/Demon_Walk_Top.png", screen);
+	m_images[static_cast<int>(State::Attack)].Load("Assets/Images/Demon_Attack.png", screen);
 
 	for (int i = 0; i < static_cast<int>(State::TotalStates); i++)
 	{
-		m_images[i].SetAnimationVelocity(0.3f);
-		m_images[i].IsAnimationLooping(true);
 		m_images[i].IsAnimated(true);
+		m_images[i].IsAnimationLooping(true);
+		m_images[i].SetAnimationVelocity(0.3f);
 		m_collider[i].SetDimension(m_images[i].GetSpriteDimension().x, m_images[i].GetSpriteDimension().y);
 	}
 
-	m_images[static_cast<int>(State::Idle)].SetSpriteDimension((static_cast<int>(100 * 1.5)), static_cast<int>(84 * 1.5));
 	m_images[static_cast<int>(State::Idle)].SetImageDimension(5, 1, 500, 84);
+	m_images[static_cast<int>(State::Idle)].SetSpriteDimension((static_cast<int>(100 * 1.5)), static_cast<int>(84 * 1.5));
 	
-	m_images[static_cast<int>(State::Death)].SetSpriteDimension(static_cast<int>(70 * 1.5), static_cast<int>(140 * 1.5));
 	m_images[static_cast<int>(State::Death)].SetImageDimension(20, 1, 1400, 140);
+	m_images[static_cast<int>(State::Death)].SetSpriteDimension(static_cast<int>(70 * 1.5), static_cast<int>(140 * 1.5));
 
-	m_images[static_cast<int>(State::Walk)].SetSpriteDimension(static_cast<int>(100 * 1.5), static_cast <int>(84 * 1.5));
 	m_images[static_cast<int>(State::Walk)].SetImageDimension(8, 1, 800, 84);
+	m_images[static_cast<int>(State::Walk)].SetSpriteDimension(static_cast<int>(100 * 1.5), static_cast <int>(84 * 1.5));
 
-	m_images[static_cast<int>(State::Up)].SetSpriteDimension(static_cast<int>(74 * 1.5), static_cast<int>(80 * 1.5));
 	m_images[static_cast<int>(State::Up)].SetImageDimension(8, 1, 592, 80);
+	m_images[static_cast<int>(State::Up)].SetSpriteDimension(static_cast<int>(74 * 1.5), static_cast<int>(80 * 1.5));
 
-	m_images[static_cast<int>(State::Attack)].SetSpriteDimension(static_cast<int>(120 * 1.5), static_cast<int>(100 * 1.5));
-	m_images[static_cast<int>(State::Attack)].SetImageDimension(11, 1, 1320, 100);
 	m_images[static_cast<int>(State::Attack)].SetAnimationVelocity(1.0f);
+	m_images[static_cast<int>(State::Attack)].SetImageDimension(11, 1, 1320, 100);
+	m_images[static_cast<int>(State::Attack)].SetSpriteDimension(static_cast<int>(120 * 1.5), static_cast<int>(100 * 1.5));
 }
 
 Player::~Player()
@@ -61,15 +61,15 @@ void Player::Update(Input& input)
 	{
 		m_direction.x = -1;
 		m_direction.y = 0;
-		m_facingDirection = Direction::Left;
 		m_state = State::Walk;
+		m_facingDirection = Direction::Left;
 	}
 	else if (input.GetKeyDown() == SDL_SCANCODE_RIGHT && m_position.x + m_images[static_cast<int>(m_state)].GetSpriteDimension().x < 1280)
 	{
 		m_direction.x = 1;
 		m_direction.y = 0;
-		m_facingDirection = Direction::Right;
 		m_state = State::Walk;
+		m_facingDirection = Direction::Right;
 	}
 	else if (input.GetKeyDown() == SDL_SCANCODE_UP && m_position.y > 0)
 	{

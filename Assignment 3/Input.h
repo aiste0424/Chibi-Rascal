@@ -19,14 +19,14 @@ public:
 
 private:
 
-	char m_keyUp;
-	char m_keyDown;
+	char m_keyUp = '\0';
+	char m_keyDown = '\0';
 
 	bool m_isMouseClicked = false;
 	bool m_isWindowClosed = false;
 
-	int m_mouseButtonUp;
-	int m_mouseButtonDown;
+	int m_mouseButtonUp = 0;
+	int m_mouseButtonDown = 0;
 
 	Vector2D m_mousePosition;
 };

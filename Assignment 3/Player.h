@@ -1,7 +1,7 @@
 #pragma once
-#include "BoxCollider.h"
-#include "GameObject.h"
 #include "Sprite.h"
+#include "GameObject.h"
+#include "BoxCollider.h"
 
 //inheritance = IS-A
 //containment = HAS-A
@@ -29,8 +29,9 @@ public:
 		Right
 	};
 	
-	Player(Screen& screen);
 	~Player();
+	Player(Screen& screen);
+
 	State GetState();
 	BoxCollider& GetCollider();
 	
@@ -46,7 +47,7 @@ private:
 	
 	int m_velocity;
 
-	Vector2D m_emptySpace;
 	Vector2D m_direction;
+	Vector2D m_emptySpace;
 };
 

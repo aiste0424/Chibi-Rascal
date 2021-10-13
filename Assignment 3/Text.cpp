@@ -19,6 +19,7 @@ void Text::Shutdown()
 
 Text::Text()
 {
+	m_texture = nullptr;
 	m_font = nullptr;
 	m_isDirty = true;
 	m_color = { 255, 255, 255, 255 };

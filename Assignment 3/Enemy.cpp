@@ -4,29 +4,29 @@
 
 Enemy::Enemy(Screen& screen)
 {
+    m_stun = -1;
     m_frames = 0;
+    m_hasStun = false;
     m_collidingFrames = 0;
     m_emptySpace = {15, 10};
-    m_stun = -1;
-    m_hasStun = false;
 
     m_state = State::Idle;
     m_facingDirection = Direction::Left;
     
-    m_images[static_cast<int>(State::Attack)].Load("Assets/Images/Reaper_Attack.png", screen);
-    m_images[static_cast<int>(State::Idle)].Load("Assets/Images/Reaper_Idle.png", screen);
     m_images[static_cast<int>(State::Walk)].Load("Assets/Images/Reaper_Run.png", screen);
+    m_images[static_cast<int>(State::Idle)].Load("Assets/Images/Reaper_Idle.png", screen);
+    m_images[static_cast<int>(State::Attack)].Load("Assets/Images/Reaper_Attack.png", screen);
 
-    m_images[static_cast<int>(State::Attack)].SetImageDimension(10, 1, 480, 48);
-    m_images[static_cast<int>(State::Idle)].SetImageDimension(5, 1, 240, 48);
     m_images[static_cast<int>(State::Walk)].SetImageDimension(8, 1, 384, 48);
+    m_images[static_cast<int>(State::Idle)].SetImageDimension(5, 1, 240, 48);
+    m_images[static_cast<int>(State::Attack)].SetImageDimension(10, 1, 480, 48);
 
     for (int i = 0; i < static_cast<int>(State::TotalStates); i++)
     {
-        m_images[i].SetSpriteDimension(48 * 3, 48 * 3);
         m_images[i].IsAnimated(true);
         m_images[i].IsAnimationLooping(true);
         m_images[i].SetAnimationVelocity(0.2f);
+        m_images[i].SetSpriteDimension(48 * 3, 48 * 3);
     }
 }
 
